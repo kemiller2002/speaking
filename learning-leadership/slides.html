@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>When Learning Becomes the Job — Slides</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#0f1620;
+      --ink:#eaf2ff;
+      --muted:#a9b6c7;
+      --accent:#6aa9ff;
+      --rule:rgba(255,255,255,.12);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font: 18px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      overflow:hidden;
+    }
+    .deck{
+      position:relative;
+      height:100%;
+      width:100%;
+    }
+    .slide{
+      position:absolute;
+      inset:0;
+      padding: 64px 80px;
+      display:none;
+      background: radial-gradient(1200px 900px at 15% 10%, rgba(106,169,255,.12), transparent 55%),
+                  radial-gradient(900px 700px at 85% 85%, rgba(106,169,255,.10), transparent 55%),
+                  linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+    }
+    .slide.active{ display:block; }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding-bottom:14px;
+      border-bottom:1px solid var(--rule);
+      color:var(--muted);
+      font-size:14px;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 6px rgba(106,169,255,.12);
+    }
+    .progress{
+      display:flex; align-items:center; gap:10px;
+    }
+    .bar{
+      width:160px; height:6px; border-radius:999px;
+      background:rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+    .bar > div{
+      height:100%;
+      background:var(--accent);
+      width:0%;
+    }
+
+    .content{
+      height: calc(100% - 64px);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:18px;
+      max-width: 1100px;
+    }
+    h1,h2,h3{ margin:0; letter-spacing:-0.02em; }
+    h1{ font-size:56px; line-height:1.05; }
+    h2{ font-size:44px; line-height:1.1; }
+    h3{ font-size:30px; line-height:1.2; color: var(--muted); }
+    p{
+      margin:0;
+      color:var(--muted);
+      font-size:22px;
+      max-width: 72ch;
+    }
+    .lead{
+      color:var(--ink);
+      font-size:26px;
+      max-width: 70ch;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid var(--rule);
+      background:rgba(255,255,255,.04);
+      padding:10px 14px;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:16px;
+      width: fit-content;
+    }
+    .pill strong{ color: var(--ink); font-weight:650; }
+
+    .stack{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:6px;
+    }
+    .bullet{
+      display:flex; gap:12px; align-items:flex-start;
+      font-size:26px;
+      color:var(--ink);
+    }
+    .bullet .mark{
+      margin-top:10px;
+      width:10px; height:10px; border-radius:2px;
+      background: var(--accent);
+      flex: 0 0 auto;
+      box-shadow:0 0 0 6px rgba(106,169,255,.10);
+    }
+    .sub{
+      color:var(--muted);
+      font-size:18px;
+      margin-top:6px;
+    }
+
+    .quote{
+      border-left: 4px solid var(--accent);
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+    .quote .q{
+      color: var(--ink);
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .quote .a{
+      margin-top:10px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .kbd{
+      position:absolute;
+      left: 80px;
+      bottom: 34px;
+      color: rgba(255,255,255,.55);
+      font-size:14px;
+    }
+    .kbd code{
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--rule);
+      padding: 3px 7px;
+      border-radius: 8px;
+      color: rgba(255,255,255,.8);
+    }
+    .foot{
+      position:absolute;
+      right: 80px;
+      bottom: 34px;
+      color: rgba(255,255,255,.55);
+      font-size:14px;
+    }
+
+    @media (max-width: 900px){
+      .slide{ padding: 36px 26px; }
+      .kbd{ left: 26px; }
+      .foot{ right: 26px; }
+      h1{ font-size: 40px; }
+      h2{ font-size: 34px; }
+      p{ font-size: 18px; }
+      .lead{ font-size: 20px; }
+      .bullet{ font-size: 20px; }
+      .quote .q{ font-size: 24px; }
+    }
+
+    /* Presenter notes (optional, toggled with "N") */
+    .notes{
+      display:none;
+      position:absolute;
+      left:80px; right:80px;
+      bottom:70px;
+      padding: 14px 16px;
+      border:1px dashed rgba(255,255,255,.18);
+      border-radius: 12px;
+      background: rgba(0,0,0,.25);
+      color: rgba(255,255,255,.70);
+      font-size: 14px;
+      max-height: 24vh;
+      overflow:auto;
+    }
+    .show-notes .notes{ display:block; }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <!-- Slide 1 -->
+    <section class="slide active">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Conference Talk</span></div>
+        <div class="progress">
+          <span id="count">1 / 14</span>
+          <div class="bar"><div id="barFill"></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="pill"><strong>Title</strong> · software leadership</div>
+        <h1>When Learning<br/>Becomes the Job</h1>
+        <p class="lead">How ownership quietly breaks software teams, even when everyone is trying to help.</p>
+        <p>Kevin Miller</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act I–VI</div>
+      <div class="notes">
+        Open with the shovel story. No agenda slide. Establish: helping is good, but “handed one forever” is the problem.
+      </div>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act I</span></div>
+        <div class="progress">
+          <span>Shovel</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Sometimes leadership is<br/>sweeping the floor.</h2>
+        <div class="quote">
+          <div class="q">“I am the owner.”</div>
+          <div class="a">The HVAC tech expected a title. He found overalls.</div>
+        </div>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act I</div>
+      <div class="notes">
+        Tell the story plainly. Pause after “I am the owner.” Then: sometimes leadership looks like sweeping the floor so the business can open.
+      </div>
+    </section>
+
+    <!-- Slide 3 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act I</span></div>
+        <div class="progress">
+          <span>Tension</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Picking up a shovel<br/>is not the problem.</h2>
+        <div class="quote">
+          <div class="q">Being handed one forever is.</div>
+          <div class="a">Most organizational damage happens when no one notices the difference.</div>
+        </div>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act I</div>
+      <div class="notes">
+        Set scope: not anti-help, not role purity. This talk is about when learning/help becomes expectation and ownership without being named.
+      </div>
+    </section>
+
+    <!-- Slide 4 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act II</span></div>
+        <div class="progress">
+          <span>Pattern</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>It starts with good intentions.</h2>
+        <div class="stack">
+          <div class="bullet"><span class="mark"></span><div>PM learns prototyping to communicate better.</div></div>
+          <div class="bullet"><span class="mark"></span><div>Engineer learns customer context to trade off well.</div></div>
+          <div class="bullet"><span class="mark"></span><div>Tech lead helps cross-team “just this once.”</div></div>
+        </div>
+        <p class="sub">None of this is bad.</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act II</div>
+      <div class="notes">
+        Name it as normal behavior in good orgs. Don’t moralize. Then transition: the failure mode is subtle.
+      </div>
+    </section>
+
+    <!-- Slide 5 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act II</span></div>
+        <div class="progress">
+          <span>Signals</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>The failure mode is subtle.</h2>
+        <div class="stack">
+          <div class="bullet"><span class="mark"></span><div>The work repeats.</div></div>
+          <div class="bullet"><span class="mark"></span><div>Other people depend on it.</div></div>
+          <div class="bullet"><span class="mark"></span><div>There is no end date.</div></div>
+          <div class="bullet"><span class="mark"></span><div>Nothing else slows down.</div></div>
+        </div>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act II</div>
+      <div class="notes">
+        Slow down here. Let each signal land. Then: at some point, learning quietly becomes the job.
+      </div>
+    </section>
+
+    <!-- Slide 6 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act II</span></div>
+        <div class="progress">
+          <span>Danger</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="quote">
+          <div class="q">No one decided it.</div>
+          <div class="a">No meeting. No handoff. No announcement. It just happened.</div>
+        </div>
+        <p class="lead">Ownership stops being explicit and starts flowing toward the most capable people.</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act II</div>
+      <div class="notes">
+        Emphasize: by the time role debates appear, damage is already underway. This is why it feels political later.
+      </div>
+    </section>
+
+    <!-- Slide 7 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act III</span></div>
+        <div class="progress">
+          <span>Cost</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="quote">
+          <div class="q">The people who get overloaded rarely complain.</div>
+          <div class="a">They withdraw.</div>
+        </div>
+        <p class="lead">From the outside it looks like stability. From the inside it is disengagement.</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act III</div>
+      <div class="notes">
+        Describe the behavioral change leaders actually see: fewer ideas, narrower engagement, compliance. Then: silence is not sustainability.
+      </div>
+    </section>
+
+    <!-- Slide 8 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act III</span></div>
+        <div class="progress">
+          <span>Who</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>It hits your best people first.</h2>
+        <p class="lead">They stepped in because they cared.</p>
+        <p>Over time: energy becomes caution, curiosity becomes compliance, ownership becomes obligation.</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act III</div>
+      <div class="notes">
+        Land the line: this looks like a people problem, but it’s an ownership problem.
+      </div>
+    </section>
+
+    <!-- Slide 9 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act IV</span></div>
+        <div class="progress">
+          <span>Why it repeats</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Why this keeps happening</h2>
+        <div class="stack">
+          <div class="bullet"><span class="mark"></span><div>Urgency</div></div>
+          <div class="bullet"><span class="mark"></span><div>Heroics</div></div>
+          <div class="bullet"><span class="mark"></span><div>AI</div></div>
+        </div>
+        <p class="sub">These are accelerants. Not root causes.</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act IV</div>
+      <div class="notes">
+        Act IV framing: structural patterns in good orgs. This is not a personal failing.
+      </div>
+    </section>
+
+    <!-- Slide 10 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act IV</span></div>
+        <div class="progress">
+          <span>Urgency</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Urgency turns exceptions into habits.</h2>
+        <div class="quote">
+          <div class="q">“Just this once.”</div>
+          <div class="a">The urgency passes. The exception remains. No one resets ownership.</div>
+        </div>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act IV</div>
+      <div class="notes">
+        Under pressure the question becomes “who can do it fastest” instead of “who owns it.” Then: if you create an exception, someone must own the reset.
+      </div>
+    </section>
+
+    <!-- Slide 11 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act IV</span></div>
+        <div class="progress">
+          <span>Heroics</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>Heroics are not accountability.</h2>
+        <p class="lead">Heroics solve today’s problem. Accountability prevents tomorrow’s.</p>
+        <p>When rescues are rewarded and systems do not change, the hero becomes the backstop.</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act IV</div>
+      <div class="notes">
+        Keep it non-judgmental: heroes are valuable. The problem is relying on heroics instead of moving ownership and fixing the system.
+      </div>
+    </section>
+
+    <!-- Slide 12 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act IV</span></div>
+        <div class="progress">
+          <span>AI</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>AI makes it faster.</h2>
+        <p class="lead">When tools make help cheap, long-term ownership gets invisible.</p>
+        <div class="quote">
+          <div class="q">If this output disappeared tomorrow, who is accountable?</div>
+          <div class="a">If the answer is “whoever generated it,” that is role creep at machine speed.</div>
+        </div>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act IV</div>
+      <div class="notes">
+        Don’t overexplain AI. Keep it: tools do not change systems, they expose them. AI increases the need for boundaries.
+      </div>
+    </section>
+
+    <!-- Slide 13 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act V</span></div>
+        <div class="progress">
+          <span>Avoided moment</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="quote">
+          <div class="q">Leadership fails quietly.</div>
+          <div class="a">Not in the crisis. In the moment before, when nothing is on fire yet.</div>
+        </div>
+        <p class="lead">Do we name ownership and tradeoffs, or let it ride?</p>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act V</div>
+      <div class="notes">
+        Describe the fork: work is getting done, ownership unclear, someone capable steps in. Later: do we name it and disappoint people or avoid friction and deepen dependency?
+      </div>
+    </section>
+
+    <!-- Slide 14 -->
+    <section class="slide">
+      <div class="topbar">
+        <div class="brand"><span class="dot"></span><span>Act VI</span></div>
+        <div class="progress">
+          <span>Discipline</span>
+          <div class="bar"><div></div></div>
+        </div>
+      </div>
+      <div class="content">
+        <h2>The discipline that holds</h2>
+        <div class="stack">
+          <div class="bullet"><span class="mark"></span><div>Learning needs an end date.</div></div>
+          <div class="bullet"><span class="mark"></span><div>Repetition means ownership.</div></div>
+          <div class="bullet"><span class="mark"></span><div>One learning effort at a time.</div></div>
+          <div class="bullet"><span class="mark"></span><div>Exceptions require a reset.</div></div>
+        </div>
+        <div class="quote" style="margin-top:16px;">
+          <div class="q">If nothing pauses, the work is already real.</div>
+          <div class="a">Picking up a shovel is leadership. Being handed one forever is a failure to name ownership.</div>
+        </div>
+      </div>
+      <div class="kbd"><code>←</code> <code>→</code> navigate · <code>N</code> notes · <code>F</code> fullscreen</div>
+      <div class="foot">Act VI</div>
+      <div class="notes">
+        Keep guardrails minimal. Emphasize protection, not control. Close by returning to shovel metaphor. End gently.
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const deck = document.getElementById('deck');
+      let idx = 0;
+
+      const countEl = document.getElementById('count');
+      const barFill = document.getElementById('barFill');
+
+      function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+
+      function render(){
+        idx = clamp(idx, 0, slides.length - 1);
+        slides.forEach((s,i)=> s.classList.toggle('active', i === idx));
+        if (countEl) countEl.textContent = `${idx+1} / ${slides.length}`;
+        if (barFill) barFill.style.width = `${((idx+1)/slides.length)*100}%`;
+        // update per-slide bars in topbar if present
+        document.querySelectorAll('.topbar .bar > div').forEach((d)=>{
+          // keep as subtle static unless it's the main bar
+          d.style.width = '0%';
+        });
+      }
+
+      function next(){ idx++; render(); }
+      function prev(){ idx--; render(); }
+
+      function toggleNotes(){
+        deck.classList.toggle('show-notes');
+      }
+
+      function toggleFullscreen(){
+        if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+        else document.exitFullscreen?.();
+      }
+
+      document.addEventListener('keydown', (e)=>{
+        const k = e.key;
+        if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); next(); }
+        if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+        if (k === 'Home') { idx = 0; render(); }
+        if (k === 'End') { idx = slides.length - 1; render(); }
+        if (k === 'n' || k === 'N') { toggleNotes(); }
+        if (k === 'f' || k === 'F') { toggleFullscreen(); }
+      });
+
+      // click to advance (but avoid selecting text)
+      document.addEventListener('click', (e)=>{
+        // ignore clicks on links or if selecting
+        const sel = window.getSelection?.();
+        if (sel && String(sel).length > 0) return;
+        // advance unless shift is held
+        if (e.shiftKey) prev();
+        else next();
+      });
+
+      // basic touch support
+      let startX = null;
+      document.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
+      document.addEventListener('touchend', (e)=>{
+        if (startX === null) return;
+        const endX = e.changedTouches[0].clientX;
+        const dx = endX - startX;
+        if (Math.abs(dx) > 40){
+          if (dx < 0) next(); else prev();
+        }
+        startX = null;
+      }, {passive:true});
+
+      render();
+    })();
+  </script>
+</body>
+</html>
