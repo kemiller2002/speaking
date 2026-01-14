@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cincy Deliver — Talk Abstracts (Kevin Miller)</title>
+  <style>
+    :root { --bg:#0b0c10; --card:#12141a; --text:#e9eef5; --muted:#a8b3c2; --accent:#7c5cff; --border:#222634; }
+    html,body { background:var(--bg); color:var(--text); margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+    header { padding: 28px 20px 8px; max-width: 980px; margin: 0 auto; }
+    header h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: 0.2px; }
+    header p { margin: 0; color: var(--muted); line-height: 1.45; }
+    main { max-width: 980px; margin: 0 auto; padding: 16px 20px 40px; }
+    .grid { display: grid; gap: 14px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 16px 14px; }
+    .title { display:flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+    .title h2 { margin: 0; font-size: 18px; }
+    .tag { font-size: 12px; color: var(--muted); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px; }
+    .meta { display:flex; flex-wrap: wrap; gap: 8px 10px; margin: 8px 0 12px; }
+    .meta span { color: var(--muted); font-size: 12px; }
+    .meta b { color: var(--text); font-weight: 600; }
+    .block h3 { margin: 10px 0 6px; font-size: 13px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; }
+    .block p { margin: 0; color: var(--text); line-height: 1.55; }
+    ul { margin: 8px 0 0 18px; color: var(--text); line-height: 1.5; }
+    li { margin: 4px 0; }
+    footer { max-width: 980px; margin: 0 auto; padding: 0 20px 26px; color: var(--muted); font-size: 12px; }
+    .note { color: var(--muted); }
+    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: 12px; color: var(--muted); }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cincy Deliver — Talk Abstracts</h1>
+    <p>
+      A small bundle of conference-ready abstracts you can paste into the CFP form.
+      Replace the bracketed placeholders if you want to tailor for format/length.
+    </p>
+    <p class="note">
+      Suggested use: submit 3–5, mixing one “safe/practical” with one “systems/leadership” and one “spicy-but-respectful.”
+    </p>
+  </header>
+
+  <main>
+    <section class="card">
+      <div class="block">
+        <h3>Speaker (optional blurb)</h3>
+        <p>
+          <b>[Kevin Miller]</b> is a software leader and systems-builder focused on delivery reality:
+          how organizations make decisions, how they detect risk early, and how to design feedback loops that surface truth.
+          He’s worked across engineering leadership, architecture, and incident-style diagnostics, translating messy reality into usable evidence.
+        </p>
+        <p class="note" style="margin-top:10px;">
+          <span class="kbd">Tip:</span> If the CFP asks for a shorter bio, cut this to two sentences.
+        </p>
+      </div>
+    </section>
+
+    <div class="grid">
+
+      <!-- 1 -->
+      <article class="card">
+        <div class="title">
+          <h2>Delivery Theater: Why Everything Looks Green Until It Explodes</h2>
+          <span class="tag">Delivery / Metrics</span>
+        </div>
+        <div class="meta">
+          <span><b>Format:</b> [30–45 min]</span>
+          <span><b>Level:</b> [All / Intermediate]</span>
+          <span><b>Audience:</b> EMs, PMs, Tech Leads, Architects</span>
+        </div>
+
+        <div class="block">
+          <h3>Abstract</h3>
+          <p>
+            Most delivery failures don’t start as “red” problems—they start as <i>green stories</i>. Status is green.
+            Dashboards are green. Roadmaps are green. Then the release slips, the quality collapses, and everyone acts surprised.
+          </p>
+          <p style="margin-top:10px;">
+            This talk names the pattern: <b>delivery theater</b>—the set of incentives, rituals, and artifacts that optimize for the appearance
+            of progress instead of the reality of progress. We’ll walk through the most common ways teams “go green” while silently accumulating risk:
+            ambiguous definitions of done, milestone-based reporting, “percent complete” estimates, heroic late saves, and metrics that reward silence.
+          </p>
+          <p style="margin-top:10px;">
+            You’ll leave with an evidence-first checklist you can apply immediately: what to ask for in reviews, which artifacts actually predict outcomes,
+            and how to shift from “status meetings” to “truth signals” without adding more process.
+          </p>
+        </div>
+
+        <div class="block">
+          <h3>Takeaways</h3>
+          <ul>
+            <li>A practical definition of delivery theater and how to spot it early.</li>
+            <li>What “real progress evidence” looks like (and what doesn’t).</li>
+            <li>A lightweight review pattern that replaces status with proof.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="card">
+        <div class="title">
+          <h2>Trust the Evidence, Not the Expert</h2>
+          <span class="tag">Decision-Making</span>
+        </div>
+        <div class="meta">
+          <span><b>Format:</b> [30–45 min]</span>
+          <span><b>Level:</b> [All]</span>
+          <span><b>Audience:</b> Leaders + ICs in delivery orgs</span>
+        </div>
+
+        <div class="block">
+          <h3>Abstract</h3>
+          <p>
+            Expertise is valuable—until it becomes a substitute for verification. In software delivery,
+            the most expensive mistakes often come from the same sentence: “Trust me, I’ve done this before.”
+          </p>
+          <p style="margin-top:10px;">
+            This talk is about building an <b>evidence-first culture</b> that still respects expertise but refuses to outsource reality.
+            We’ll examine common moments where authority suppresses weak signals: architecture decisions with no measurable outcomes,
+            delivery forecasts with no calibration, “it’s fine” production risks, and reviews where questions are treated as disrespect.
+          </p>
+          <p style="margin-top:10px;">
+            You’ll get practical tools to change this without turning every decision into a trial: a simple evidence ladder,
+            how to ask for proof without triggering defensiveness, and how to design systems where evidence emerges naturally
+            (instrumentation, versioned artifacts, small bets, and reversible decisions).
+          </p>
+        </div>
+
+        <div class="block">
+          <h3>Takeaways</h3>
+          <ul>
+            <li>An “evidence ladder” for delivery, architecture, and operational decisions.</li>
+            <li>Language patterns that invite proof instead of ego battles.</li>
+            <li>How to make evidence cheaper than opinion.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="card">
+        <div class="title">
+          <h2>Every System Is Perfectly Designed to Hide Its Own Failures</h2>
+          <span class="tag">Systems / Risk</span>
+        </div>
+        <div class="meta">
+          <span><b>Format:</b> [45 min]</span>
+          <span><b>Level:</b> [Intermediate]</span>
+          <span><b>Audience:</b> Tech Leads, Architects, Delivery Leaders</span>
+        </div>
+
+        <div class="block">
+          <h3>Abstract</h3>
+          <p>
+            When a delivery system fails, we treat it like a surprise. But most “sudden” failures are slow failures
+            that were normalized—one exception, one workaround, one ignored signal at a time.
+          </p>
+          <p style="margin-top:10px;">
+            This talk reframes failure as a design outcome: incentives, reporting structures, ownership boundaries,
+            and tooling all shape what a system can “see” about itself. If your org rewards optimism, risk goes quiet.
+            If you measure output instead of outcomes, you can ship constantly and still not deliver value.
+          </p>
+          <p style="margin-top:10px;">
+            We’ll walk through a practical method for uncovering latent conditions:
+            identify where feedback is delayed, where accountability is diffused, and where “success” is measured in a way
+            that makes problems invisible. Then we’ll map simple interventions that increase truth without increasing bureaucracy:
+            clearer definitions of done, tighter loops, explicit risk registers that don’t punish honesty, and artifact-based reviews.
+          </p>
+        </div>
+
+        <div class="block">
+          <h3>Takeaways</h3>
+          <ul>
+            <li>A repeatable way to diagnose “hidden failure” in delivery systems.</li>
+            <li>Common org designs that create blind spots (and how to fix them).</li>
+            <li>Interventions that improve truth signals without adding meetings.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="card">
+        <div class="title">
+          <h2>Leadership Is Picking Up the Shovel</h2>
+          <span class="tag">Leadership</span>
+        </div>
+        <div class="meta">
+          <span><b>Format:</b> [30–45 min]</span>
+          <span><b>Level:</b> [All]</span>
+          <span><b>Audience:</b> Managers, Directors, Staff+ ICs</span>
+        </div>
+
+        <div class="block">
+          <h3>Abstract</h3>
+          <p>
+            Most delivery problems aren’t “engineering problems.” They’re <b>ownership problems</b>.
+            They live in the gaps: unclear accountability, incentives that reward story-telling, and leaders who steer from dashboards
+            without ever touching the ground.
+          </p>
+          <p style="margin-top:10px;">
+            “Picking up the shovel” doesn’t mean leaders should code every day. It means leaders must engage with the real constraints:
+            how work actually flows, why a team is blocked, where quality breaks, and which tradeoffs are being made quietly.
+            This talk covers the leadership behaviors that change delivery outcomes: asking better questions,
+            making hidden work visible, removing structural blockers, and creating psychological safety for bad news early.
+          </p>
+          <p style="margin-top:10px;">
+            You’ll leave with a set of concrete practices—review formats, question prompts, and operating rhythms—that help leaders
+            earn credibility and improve throughput without micromanaging.
+          </p>
+        </div>
+
+        <div class="block">
+          <h3>Takeaways</h3>
+          <ul>
+            <li>What “picking up the shovel” looks like at each leadership level.</li>
+            <li>How to increase truth signals without becoming a bottleneck.</li>
+            <li>Operating rhythms that turn leadership into a delivery multiplier.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="card">
+        <div class="title">
+          <h2>Evidence-Driven Delivery Reviews (Without More Meetings)</h2>
+          <span class="tag">Practical / Process</span>
+        </div>
+        <div class="meta">
+          <span><b>Format:</b> [30–45 min]</span>
+          <span><b>Level:</b> [All / Intermediate]</span>
+          <span><b>Audience:</b> EMs, PMs, Tech Leads, Program/Delivery</span>
+        </div>
+
+        <div class="block">
+          <h3>Abstract</h3>
+          <p>
+            If your delivery reviews feel like status theater, the answer isn’t “more reporting.”
+            It’s better evidence—collected as a byproduct of doing real work.
+          </p>
+          <p style="margin-top:10px;">
+            This talk provides a concrete review model that replaces subjective updates with a small set of high-signal artifacts:
+            decisions that were made (and why), risk that changed, throughput trends, integration reality, and customer impact.
+            We’ll cover how to structure the agenda, what to ask teams to bring, and how to avoid turning reviews into interrogations.
+          </p>
+          <p style="margin-top:10px;">
+            The goal: fewer surprises, faster learning, and calmer delivery—because the truth arrives earlier and cheaper.
+          </p>
+        </div>
+
+        <div class="block">
+          <h3>Takeaways</h3>
+          <ul>
+            <li>A plug-and-play delivery review template.</li>
+            <li>Which artifacts are predictive vs performative.</li>
+            <li>How to make reviews supportive, not punitive.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="card">
+        <div class="title">
+          <h2>When Automation Makes Things Worse</h2>
+          <span class="tag">Automation / Systems</span>
+        </div>
+        <div class="meta">
+          <span><b>Format:</b> [30–45 min]</span>
+          <span><b>Level:</b> [All]</span>
+          <span><b>Audience:</b> Engineers, DevOps, Leaders</span>
+        </div>
+
+        <div class="block">
+          <h3>Abstract</h3>
+          <p>
+            Automation is supposed to reduce toil. But teams often automate the wrong thing:
+            broken processes, unclear ownership, and decisions that should stay human.
+            The result is faster failure, harder debugging, and less trust.
+          </p>
+          <p style="margin-top:10px;">
+            This talk shares a practical framework for deciding <i>what</i> to automate and <i>when</i>.
+            We’ll cover common traps: automating ambiguity (“just add a workflow”), automating politics (“approval gates”),
+            automating without observability, and automating workarounds that should have been removed.
+          </p>
+          <p style="margin-top:10px;">
+            You’ll leave with a simple set of tests: does automation reduce risk or amplify it? does it clarify ownership or hide it?
+            does it shorten feedback loops or create a brittle chain? You’ll also get examples of “good automation” that improves delivery
+            by making evidence cheaper, outcomes clearer, and failures easier to see.
+          </p>
+        </div>
+
+        <div class="block">
+          <h3>Takeaways</h3>
+          <ul>
+            <li>A decision framework for automation that prevents “faster wrong.”</li>
+            <li>Patterns for safe automation: observability, reversibility, and ownership.</li>
+            <li>How to avoid automating the symptom instead of the cause.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      File: <span class="kbd">cincy-deliver-talk-abstracts.html</span> —
+      Paste individual titles/abstracts into the CFP form as needed.
+    </p>
+    <p class="note">
+      If you want, tell me which 3–5 you’re submitting and what session lengths the CFP offers,
+      and I’ll tighten each abstract to fit the exact character limits + tailor the “takeaways” to their tracks.
+    </p>
+  </footer>
+</body>
+</html>
